@@ -1,0 +1,31 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title>HTTPS to SMS</title>
+    </head>
+    <body>
+        <script>
+            // Based on https://stackoverflow.com/a/901144/1652620
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+
+            function getParameterByName(name, url = window.location.href) {
+                name = name.replace(/[\[\]]/g, '\\$&');
+                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
+
+            var tel = getParameterByName('tel');
+            var body = getParameterByName('body');
+
+            // Based on https://stackoverflow.com/a/4745622/1652620
+            if (tel != "" && tel != null) {
+                window.location = "sms://+" + tel + ";?&body=" + body;
+            }
+        </script>
+    </body>
+</html>
