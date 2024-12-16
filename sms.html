@@ -6,25 +6,31 @@
     </head>
     <body>
         <script>
-            // Based on https://stackoverflow.com/a/901144/1652620
+            function openSMS(tel, body) {
+                const smsLink = `sms:${tel}?body=${encodeURIComponent(body)}`;
+                const isSMSAvailable = (() => {
+                    const a = document.createElement('a');
+                    a.href = smsLink;
+                    return a.protocol === 'sms:';
+                })();
+            
+                if (isSMSAvailable) {
+                    window.location = smsLink;
+                } else {
+                    alert("Your device does not support SMS functionality. Please use a mobile device.");
+                }
+            }
+            // Parse query string parameters using URLSearchParams
             const urlSearchParams = new URLSearchParams(window.location.search);
             const params = Object.fromEntries(urlSearchParams.entries());
-
-            function getParameterByName(name, url = window.location.href) {
-                name = name.replace(/[\[\]]/g, '\\$&');
-                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                    results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return '';
-                return decodeURIComponent(results[2].replace(/\+/g, ' '));
-            }
-
-            var tel = getParameterByName('tel');
-            var body = getParameterByName('body');
-
-            // Based on https://stackoverflow.com/a/4745622/1652620
-            if (tel != "" && tel != null) {
-                window.location = "sms://+" + tel + ";?&body=" + body;
+            
+            // Retrieve tel and body parameters
+            const tel = params.tel;
+            const body = encodeURIComponent(params.body || ''); // Encode body for special characters
+            
+            // Redirect to SMS app if tel is valid
+            if (tel) {
+                openSMS(tel, body);
             }
         </script>
     </body>
