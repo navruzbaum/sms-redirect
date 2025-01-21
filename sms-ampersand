@@ -1,0 +1,23 @@
+<!doctype html>
+
+<html>
+    <head>
+        <title>HTTPS to SMS</title>
+    </head>
+    <body>
+        <script>
+            // Parse query string parameters using URLSearchParams
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+            
+            // Retrieve tel and body parameters
+            const tel = params.tel;
+            const body = encodeURIComponent(params.body || ''); // Encode body for special characters
+            
+            // Redirect to SMS app if tel is valid
+            if (tel) {
+                window.location = `sms:${tel}&body=${body}`;
+            }
+        </script>
+    </body>
+</html>
