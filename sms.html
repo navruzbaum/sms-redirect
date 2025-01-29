@@ -45,10 +45,10 @@
             if (tel) {
                 window.location = `sms:${tel}?body=${body}`;
                 setTimeout(() => {
-                    // Show a message or button to close the tab
-                    document.body.innerHTML = `
-                    <button onclick="window.close()">Close Tab</button>
-                    `;
+                    const button = document.createElement("button");
+                    button.textContent = "Close Tab";
+                    button.onclick = () => window.close();
+                    document.body.appendChild(button);
                 }, 500); // Adjust delay as needed
             }
         </script>
