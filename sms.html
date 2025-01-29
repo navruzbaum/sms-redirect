@@ -47,14 +47,10 @@
                 
                 // Attempt to close the tab after a short delay
                 setTimeout(() => {
-                    try {
-                        window.close();
-                    } catch (error) {
-                        // Show a message or button to close the tab
-                        document.body.innerHTML = `
-                        <button onclick="window.close()">Close Tab</button>
-                        `;
-                    }
+                    // Show a message or button to close the tab
+                    document.body.innerHTML = `
+                    <button onclick="window.close()">Close Tab</button>
+                    `;
                 }, 500); // Adjust delay as needed
             }
         </script>
