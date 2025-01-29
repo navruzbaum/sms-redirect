@@ -1,10 +1,44 @@
 <!doctype html>
-
 <html>
     <head>
         <title>HTTPS to SMS</title>
     </head>
     <body>
+        <style>
+          /* Match the style of your TextBanker app */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            color: #343a40;
+        }
+        
+        button {
+            background-color: #6c757d;
+            font-size: 6vw; /* Larger font size for emphasis */
+            font-weight: bold;
+            padding: 5vw 8vw; /* More padding for a bigger button */
+            height: 18vw;
+            border: none;
+            border-radius: 10px; /* Slightly larger border radius for prominence */
+            cursor: pointer;
+            color: #ffffff;
+            font-family: inherit;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-bottom: 3vw;
+        }
+            
+          button:hover {
+            background-color: #5a6268;
+            transform: scale(1.05);
+          }
+        </style>
+
         <script>
             // Parse query string parameters using URLSearchParams
             const urlSearchParams = new URLSearchParams(window.location.search);
@@ -17,6 +51,12 @@
             // Redirect to SMS app if tel is valid
             if (tel) {
                 window.location = `sms:${tel}&body=${body}`;
+                setTimeout(() => {
+                    const button = document.createElement("button");
+                    button.textContent = "Close Tab";
+                    button.onclick = () => window.close();
+                    document.body.appendChild(button);
+                }, 500); // Adjust delay as needed
             }
         </script>
     </body>
