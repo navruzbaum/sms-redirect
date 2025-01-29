@@ -53,7 +53,7 @@
                 window.location = `sms:${tel}?body=${body}`;
                 setTimeout(() => {
                     const button = document.createElement("button");
-                    button.textContent = "Close Tab";
+                    button.textContent = "✖ Close";
                     button.onclick = () => window.close();
                     document.body.appendChild(button);
                 }, 500); // Adjust delay as needed
