@@ -45,7 +45,7 @@
             const params = Object.fromEntries(urlSearchParams.entries());
             
             // Retrieve tel and body parameters
-            const tel = params.tel;
+            const tel = (params.tel || '').replace(/[^\d+]/g, '');
             const body = encodeURIComponent(params.body || ''); // Encode body for special characters
             
             // Redirect to SMS app if tel is valid
